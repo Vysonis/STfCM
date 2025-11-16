@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>STfCM – Satellite Tracker</title>
+    <link rel="stylesheet" href="/ui/styles.css?v=4" />
+    <script src="https://unpkg.com/globe.gl"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="panel">
+        <header class="navbar">
+          <div class="brand">STfCM</div>
+          <nav>
+            <button id="nav-globe" class="active">Globe</button>
+            <button id="nav-stations">Stations</button>
+          </nav>
+        </header>
+
+
+        <section id="tab-globe">
+                  <section>
+          <h2>Health</h2>
+          <div id="health" class="info">Loading…</div>
+        </section>
+          <h2>Satellites</h2>
+          <div class="row row-controls">
+            <label>
+              &#8203;
+              <input type="number" id="sat-limit" value="500" placeholder="Render limit for satelites. e.g 500 satelites max" />
+            </label>
+            <button id="refresh-sats">Refresh</button>
+          </div>
+          <div class="row row-earth">
+            <label>
+               &#8203; &#8203;
+              <input type="text" id="sat-filter" placeholder="e.g. Starlink" />
+            </label>
+          </div>
+          <!-- <div class="row row-autorefresh">
+            <label style="display:flex;align-items:center;gap:8px">
+              <input type="checkbox" id="auto-refresh" />
+              Auto refresh
+            </label>
+            <label>
+              Every (sec)
+              <input type="number" id="refresh-interval" value="15" />
+            </label>
+          </div> -->
+          <div id="sat-info" class="list"></div>
+        </section>
+
+        <section id="tab-stations" class="hidden">
+          <h2>Stations</h2>
+          <form id="station-form">
+            <label>
+              Name
+              <input type="text" id="station-name" placeholder="Optional" />
+            </label>
+            <div class="row">
+              <label>
+                Lat
+                <input type="number" step="0.0001" id="station-lat" placeholder="40.7" required />
+              </label>
+              <label>
+                Lon
+                <input type="number" step="0.0001" id="station-lon" placeholder="-74.0" required />
+              </label>
+            </div>
+            <button type="submit">Add Station</button>
+          </form>
+          <div id="stations-list" class="list"></div>
+
+          <h2>Passes</h2>
+          <label>
+            NORAD ID
+            <input type="number" id="norad-id" placeholder="25544" />
+          </label>
+          <label>
+            Station
+            <select id="station-select"></select>
+          </label>
+          <div class="row">
+            <label>
+              Duration (min)
+              <input type="number" id="duration" value="120" />
+            </label>
+            <label>
+              Step (sec)
+              <input type="number" id="step" value="15" />
+            </label>
+            <label>
+              Min Elev (deg)
+              <input type="number" id="minel" value="10" />
+            </label>
+          </div>
+          <button id="predict-btn">Predict Passes</button>
+          <div id="passes-list" class="list"></div>
+        </section>
+      </aside>
+      <main id="globe">
+        <div id="globe-header">
+          <div id="globe-summary">No satellite selected.</div>
+        </div>
+      </main>
+      <footer id="footer">
+        <div id="footer-summary">Ready.</div>
+      </footer>
+    </div>
+
+    <!-- Modal Root -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div id="modal-title">Modal</div>
+          <button id="modal-close" title="Close">×</button>
+        </div>
+        <div id="modal-body"></div>
+        <div id="modal-actions"></div>
+      </div>
+    </div>
+
+    <script src="/ui/main.js?v=4"></script>
+  </body>
+  </html>
